@@ -79,7 +79,7 @@ class AddFriendProvider extends ChangeNotifier {
       if(list.length > 0){
         for(var item in list){
           user = User.fromJson(item);
-          if(user.username != session.username){
+          if(user.username != session.username){ 
             buttonVisibility = true;
             message = '';
             return SEARCH_FOUND;          

@@ -130,7 +130,14 @@ class IconChat extends StatelessWidget{
     return Expanded(
       child: GestureDetector(
         onTap: (){
-          
+          _userInfo.provider.getRoomChat(_userInfo.user).then((id){
+            if(id != ''){
+              
+            }
+            else{
+              Toast.show('Error. Please try again', context);
+            }
+          });
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

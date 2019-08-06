@@ -21,8 +21,8 @@ class Chat{
   }
   
 
-  Map<dynamic, dynamic> toJson(Chat chat) => {
-    'username' : chat.username,
-    'chat' : chat.chat
+  Map<dynamic, dynamic> toJson() => {
+    'username' : this._username,
+    'chat' : this._chat
   };
 }
