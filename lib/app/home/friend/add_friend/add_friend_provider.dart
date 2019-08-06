@@ -63,7 +63,10 @@ class AddFriendProvider extends ChangeNotifier {
     // SEARCH EXISTING FRIENDS
     DataSnapshot searchInFriend = await friendRepository.getFriendById(session.username, param.username);
     if(searchInFriend.value != null){
-      user = User.fromJson(searchInFriend.value);
+      DataSnapshot getUser = await userRepository.getUserbyId(searchInFriend.value['id'].toString());
+      if(getUser.value != null){
+        user = User.fromJson(getUser.value);
+      }      
       buttonVisibility = false;
       message = 'You already friend with ${user.name}';
       return SEARCH_ALREADY_FRIEND;      

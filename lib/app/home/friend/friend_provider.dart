@@ -1,5 +1,6 @@
 import 'package:chatting_app/model/user.dart';
 import 'package:chatting_app/repository/friend_repository.dart';
+import 'package:chatting_app/repository/user_repository.dart';
 import 'package:chatting_app/util/session_util.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
@@ -11,6 +12,7 @@ class FriendsProvider extends ChangeNotifier{
   static const int LOADING = 4;
 
   FriendRepository friendRepository = FriendRepository();
+  UserRepository userRepository = UserRepository();
   List<User> _listFriend = List<User>();
   User _selected = User();
   int _state;
@@ -32,42 +34,28 @@ class FriendsProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  // Future<int> getFriends() async {
-  //   User session = await SessionUtil.loadUserData();        
-  //   DataSnapshot result = await friendRepository.getFriend(session.username);        
-  //   if(result.value != null) {
-  //     Iterable list = result.value.values;      
-  //     if(list.length > 0){
-  //       List<User> listTemp = List<User>();        
-  //       for(var item in list){
-  //         listTemp.add(User.fromJson(item));          
-  //       }
-  //       _listFriend = listTemp;
-  //       return LOAD_FRIEND_SUCCESS;        
-  //     }      
-  //     return LOAD_FRIEND_NO_DATA;
-  //   }    
-  //   return LOAD_FRIEND_NO_DATA;
-  // }
-
   getFriends() async {
     _state = LOADING;
     User session = await SessionUtil.loadUserData();                
     DataSnapshot result = await friendRepository.getFriend(session.username);        
     if(result.value != null) {
-      Iterable list = result.value.values;      
-      if(list.length > 0){
-        List<User> listTemp = List<User>();        
-        for(var item in list){
-          listTemp.add(User.fromJson(item));          
+      Iterable iterableId = result.value.values;                  
+      if(iterableId.length > 0){
+        List<String> listId = List<String>();        
+        List<User> listTemp = List<User>();
+        for(var item in iterableId){          
+          DataSnapshot result2 = await userRepository.getUserbyId(item['id'].toString());
+          if(result2.value != null){
+            listTemp.add(User.fromJson(result2.value));            
+          }          
         }        
         listFriend = listTemp;
         _state = LOAD_FRIEND_SUCCESS;
-        return;
-      }
-      _state = LOAD_FRIEND_NO_DATA;            
-      return;
-    }    
+        return;    
+      }      
+    }
+    state = LOAD_FRIEND_NO_DATA;            
+    return;    
   }
 
   Future<bool> deleteFriend(User user) async {

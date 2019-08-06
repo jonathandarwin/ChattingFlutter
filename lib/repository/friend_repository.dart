@@ -14,8 +14,14 @@ class FriendRepository{
 
   bool addFriends(User session, User user){
     try{
-      database.child(session.username).child('friends').child(user.username).set(user.toJson());
-      database.child(user.username).child('friends').child(session.username).set(session.toJson());
+      // database.child(session.username).child('friends').child(user.username).set(user.toJson());
+      // database.child(user.username).child('friends').child(session.username).set(session.toJson());
+      database.child(session.username).child('friends').child(user.username).set({
+        'id' : user.username
+      });
+      database.child(user.username).child('friends').child(session.username).set({
+        'id' : session.username
+      });
       return true;
     }
     on Exception{

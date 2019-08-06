@@ -17,4 +17,8 @@ class UserRepository{
   Future<DataSnapshot> getUser(User user) async {
     return await database.orderByChild('username').equalTo(user.username).once();
   }
+
+  Future<DataSnapshot> getUserbyId(String id) async {
+    return await database.child(id).once();
+  }
 }
