@@ -1,3 +1,4 @@
+import 'package:chatting_app/app/room_chat/room_chat.dart';
 import 'package:chatting_app/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:chatting_app/app/home/friend/friend_provider.dart';
@@ -132,7 +133,11 @@ class IconChat extends StatelessWidget{
         onTap: (){
           _userInfo.provider.getRoomChat(_userInfo.user).then((id){
             if(id != ''){
-              
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => RoomChatLayout()
+                )
+              );
             }
             else{
               Toast.show('Error. Please try again', context);
