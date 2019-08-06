@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "517007382978",
+    "firebase_url": "https://chattingflutter.firebaseio.com",
+    "project_id": "chattingflutter",
+    "storage_bucket": "chattingflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517007382978:android:fce9eaa904ea364f",
+        "android_client_info": {
+          "package_name": "com.example.chatting_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "517007382978-9upfoldmk7vkt8661p4lg3mg6ad6n9ad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSBhlxr-6gDHMgcmiLecGATkEXaLa0iLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517007382978-9upfoldmk7vkt8661p4lg3mg6ad6n9ad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
