@@ -93,7 +93,7 @@ class FriendsProvider extends BaseProvider{
       user,
       null
     );
-    chatRepository.insertChat(room);
+    chatRepository.insertRoomChat(room);
     Tuple2<Room, User> result = new Tuple2<Room, User>(room, user);
     return result;
   }

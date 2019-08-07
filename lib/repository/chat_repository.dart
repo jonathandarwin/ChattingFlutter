@@ -1,3 +1,4 @@
+import 'package:chatting_app/model/chat.dart';
 import 'package:chatting_app/model/room.dart';
 import 'package:chatting_app/model/user.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -14,7 +15,11 @@ class ChatRepository {
     return await database.child('room').child(id).once();
   }
 
-  String insertChat(Room room){
+  Future<DataSnapshot> getListChat(String id) async {
+    return await database.child('room').child(id).child('chat').orderByKey().once();
+  }
+
+  String insertRoomChat(Room room){
     try{      
       // INSERT KEY TO BOTH USER
       database.child('user').child(room.user1.username).child('chats').child(room.id).set({
@@ -30,6 +35,16 @@ class ChatRepository {
     }
     on Exception{
       return '';
+    }
+  }
+
+  bool insertChat(String id,Chat chat){
+    try{
+      database.child('room').child(id).child('chat').push().set(chat.toJson());
+      return true;
+    }
+    on Exception{
+      return false;
     }
   }
 }

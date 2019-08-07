@@ -22,7 +22,7 @@ class Room{
     this._id = data['id'].toString();
     this._user1 = User.fromJson(data['user1']);
     this._user2 = User.fromJson(data['user2']);
-    Iterable iterableChat = data['chat'];
+    Iterable iterableChat = data['chat'].values;
     if(iterableChat != null){
       this._chat = iterableChat.map((model) => Chat.fromJson(model)).toList();
     }
