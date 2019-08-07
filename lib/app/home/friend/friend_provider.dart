@@ -6,6 +6,7 @@ import 'package:chatting_app/repository/friend_repository.dart';
 import 'package:chatting_app/repository/user_repository.dart';
 import 'package:chatting_app/util/session_util.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:tuple/tuple.dart';
 
 
 class FriendsProvider extends BaseProvider{
@@ -64,7 +65,7 @@ class FriendsProvider extends BaseProvider{
     return friendRepository.deleteFriends(session, user);
   }
 
-  Future<Room> getRoomChat(User user) async {    
+  Future<Tuple2<Room, User>> getRoomChat(User user) async {            
     User session = await SessionUtil.loadUserData();        
     // CHECK WHETHER THE ROOM CHAT IS EXISTS OR NOT
     DataSnapshot getRoomChat = await chatRepository.getRoomChat(session);
@@ -78,7 +79,8 @@ class FriendsProvider extends BaseProvider{
           DataSnapshot getChat = await chatRepository.getChat(id);
           if(getChat != null){
             Room room = Room.fromJson(getChat.value);
-            return room;
+            Tuple2<Room, User> result = new Tuple2<Room, User>(room, session.username == room.user1.username ? room.user2 : room.user1);
+            return result;
           }          
         }
       }      
@@ -92,6 +94,7 @@ class FriendsProvider extends BaseProvider{
       null
     );
     chatRepository.insertChat(room);
-    return room;
+    Tuple2<Room, User> result = new Tuple2<Room, User>(room, user);
+    return result;
   }
 }

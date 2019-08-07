@@ -132,11 +132,11 @@ class IconChat extends StatelessWidget{
     return Expanded(
       child: GestureDetector(
         onTap: (){
-          _userInfo.provider.getRoomChat(_userInfo.user).then((room){
-            if(room != null){              
+          _userInfo.provider.getRoomChat(_userInfo.user).then((tuple){
+            if(tuple != null){              
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => RoomChatLayout(room)
+                  builder: (_) => RoomChatLayout(tuple.item1, tuple.item2)
                 )
               ).then((_){
                 Navigator.of(context).pop();

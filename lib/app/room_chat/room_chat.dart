@@ -1,57 +1,46 @@
 import 'package:chatting_app/app/room_chat/room_chat_provider.dart';
 import 'package:chatting_app/model/room.dart';
 import 'package:chatting_app/model/user.dart';
-import 'package:chatting_app/util/session_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RoomChatLayout extends StatelessWidget{    
   final Room room;
-  RoomChatLayout(this.room);
+  final User user;
+  RoomChatLayout(this.room, this.user);
 
   @override
-  Widget build(BuildContext context){
-    User session = User();    
+  Widget build(BuildContext context){    
     return ChangeNotifierProvider(
       builder: (context) => RoomChatProvider(),
-      child: FutureBuilder(        
-        future: SessionUtil.loadUserData(),
-        initialData: null,
-        builder: (context, snapshot){
-          if(snapshot.connectionState == ConnectionState.done){
-            if(snapshot.hasData){
-              session = snapshot.data;
-              return SafeArea(
-                child: Scaffold(
-                  resizeToAvoidBottomInset: true,
-                  appBar: AppBar(
-                    title: Text(session.username == room.user1.username ? room.user2.name : room.user1.name),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          resizeToAvoidBottomInset: true,
+          appBar: AppBar(
+            title: Text(user.name),
+            backgroundColor: Colors.lightBlue,
+          ),
+          body: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  flex: 9,
+                  child: Container(
+                    
                   ),
-                  body: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 9,
-                            child: Container(
-                              color: Colors.white,
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: BottomLayout(),
-                          )
-                        ],
-                      ),
-                    ),
                 ),
-              );
-            }
-          }
-          return CircularProgressIndicator();
-        },
-      )
+                Expanded(
+                  flex: 1,
+                  child: BottomLayout(),
+                ),                                      
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
