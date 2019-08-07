@@ -1,11 +1,11 @@
+import 'package:chatting_app/base/base_provider.dart';
 import 'package:chatting_app/model/user.dart';
 import 'package:chatting_app/repository/friend_repository.dart';
 import 'package:chatting_app/repository/user_repository.dart';
 import 'package:chatting_app/util/session_util.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/foundation.dart';
 
-class AddFriendProvider extends ChangeNotifier {
+class AddFriendProvider extends BaseProvider {
   static const int ADD_FRIEND_SUCCESS = 1;
   static const int ADD_FRIEND_ERROR = 2;
   

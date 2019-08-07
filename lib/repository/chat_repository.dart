@@ -15,19 +15,18 @@ class ChatRepository {
   }
 
   String insertChat(Room room){
-    try{
-      String id = room.user1.username + room.user2.username;
+    try{      
       // INSERT KEY TO BOTH USER
-      database.child('user').child(room.user1.username).child('chats').child(id).set({
-        'id' : id
+      database.child('user').child(room.user1.username).child('chats').child(room.id).set({
+        'id' : room.id
       });
-      database.child('user').child(room.user2.username).child('chats').child(id).set({
-        'id' : id
+      database.child('user').child(room.user2.username).child('chats').child(room.id).set({
+        'id' : room.id
       });
 
       // INSERT DETAIL USER IN THE ROOM CHAT
-      database.child('room').child(id).set(room.toJson());
-      return id;
+      database.child('room').child(room.id).set(room.toJson());
+      return room.id;
     }
     on Exception{
       return '';

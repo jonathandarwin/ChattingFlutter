@@ -56,32 +56,31 @@ class Loading extends StatelessWidget{
 class Search extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    return Consumer<AddFriendProvider>(
-      builder: (context, provider, _) => Container(
-        child: Row(
-          children: <Widget>[
-            // TEXT FIELD
-            Expanded(
-              child: TextField(
-                onChanged: (text) => provider.search = text,
-                decoration: InputDecoration(
-                  labelText: 'Search by Username'
-                ),
+    AddFriendProvider _provider = Provider.of<AddFriendProvider>(context, listen:false);
+    return Container(
+      child: Row(
+        children: <Widget>[
+          // TEXT FIELD
+          Expanded(
+            child: TextField(
+              onChanged: (text) => _provider.search = text,
+              decoration: InputDecoration(
+                labelText: 'Search by Username'
               ),
             ),
-            // BUTTON SEARCH
-            FlatButton(
-              onPressed: (){
-                provider.loading = true;
-                provider.searchUser().then((value){
-                  provider.loading = false;                  
-                });
-              },
-              child: Text('Search'),
-            )
-          ],        
-        ),
-      )
+          ),
+          // BUTTON SEARCH
+          FlatButton(
+            onPressed: (){
+              _provider.loading = true;
+              _provider.searchUser().then((value){
+                _provider.loading = false;                  
+              });
+            },
+            child: Text('Search'),
+          )
+        ],        
+      ),
     );
   }
 }

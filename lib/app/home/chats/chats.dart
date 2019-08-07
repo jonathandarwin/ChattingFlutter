@@ -7,14 +7,8 @@ class ChatsLayout extends StatelessWidget{
   Widget build(BuildContext context){
     return ChangeNotifierProvider(
       builder: (context) => ChatsProvider(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Chats'),    
-          backgroundColor: Colors.lightBlue,      
-        ),
-        body: Center(
-          child: Text('Chats'),
-        ),
+      child: Center(
+        child: Text('Chats'),
       )
     );
   }

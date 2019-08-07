@@ -1,5 +1,6 @@
 import 'package:chatting_app/app/room_chat/room_chat.dart';
 import 'package:chatting_app/model/user.dart';
+import 'package:chatting_app/util/session_util.dart';
 import 'package:flutter/material.dart';
 import 'package:chatting_app/app/home/friend/friend_provider.dart';
 import 'package:toast/toast.dart';
@@ -131,13 +132,15 @@ class IconChat extends StatelessWidget{
     return Expanded(
       child: GestureDetector(
         onTap: (){
-          _userInfo.provider.getRoomChat(_userInfo.user).then((id){
-            if(id != ''){
+          _userInfo.provider.getRoomChat(_userInfo.user).then((room){
+            if(room != null){              
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => RoomChatLayout()
+                  builder: (_) => RoomChatLayout(room)
                 )
-              );
+              ).then((_){
+                Navigator.of(context).pop();
+              });
             }
             else{
               Toast.show('Error. Please try again', context);
