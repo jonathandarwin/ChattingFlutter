@@ -13,14 +13,10 @@ class ChatRepository {
 
   Future<DataSnapshot> getChat(String id) async {
     return await database.child('room').child(id).once();
-  }
-
-  // Future<DataSnapshot> getListChat(String id) async {    
-  //   return await database.child('room').child(id).child('chat').orderByKey().once();
-  // }
+  }  
 
   Stream<Event> getListChat(String id) {
-    return  database.child('room').child(id).child('chat').onChildAdded;
+    return  database.child('room').child(id).child('chat').orderByKey().onChildAdded;
   }
 
   String insertRoomChat(Room room){
