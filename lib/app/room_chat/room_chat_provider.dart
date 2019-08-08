@@ -30,11 +30,11 @@ class RoomChatProvider extends BaseProvider {
   }
   set listChat(List<Chat> listChat){
     this._listChat = listChat;
-    notifyListeners();
+    notifyListeners();    
   }
   set isRefresh(bool isRefresh){
     this._isRefresh = isRefresh;
-  }  
+  }
 
   insertChat(Room room, User user) async {
     User session = await SessionUtil.loadUserData();
@@ -48,15 +48,14 @@ class RoomChatProvider extends BaseProvider {
         DataSnapshot snapshot = result.snapshot;        
         Chat chat = Chat.fromJson(snapshot.value);        
         listChat.add(chat);
-        refresh();
+        refresh();                
 
         // SET TO THE BOTTOM
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 300),
+          duration: Duration(milliseconds: 500),
           curve: Curves.easeOut
         );
-
         isRefresh = false;
       });    
     }

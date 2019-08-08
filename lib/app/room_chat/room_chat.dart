@@ -31,9 +31,8 @@ class RoomChatLayout extends StatelessWidget{
               child: Column(
                 children: <Widget>[
                   Expanded(
-                    flex: 11,
-                    child: Container(
-                      padding: EdgeInsets.all(5.0),
+                    flex: 15,
+                    child: Container(                      
                       child: ListChat()
                     ),
                   ),
@@ -89,12 +88,7 @@ class ListItem extends StatelessWidget{
       ),
       itemCount: _provider.listChat.length,
       itemBuilder: (context, i){
-        Chat chat = _provider.listChat[i];
-        _provider.scrollController.animateTo(
-          _provider.scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 300),
-          curve: Curves.easeOut
-        );
+        Chat chat = _provider.listChat[i];                
         if(chat.username == _roomInfo.user.username){
           // LEFT SIDE          
           return LeftHandChat(chat);
@@ -113,10 +107,33 @@ class LeftHandChat extends StatelessWidget{
   LeftHandChat(this._chat);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context){    
+    RoomInfo _roomInfo = RoomInfo.of(context);
+
     return Align(
       alignment: Alignment.centerLeft,
-      child: Text(_chat.chat),
+      child: Container( 
+        margin: EdgeInsets.only(left: 5.0, top:5.0, bottom:5.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              _roomInfo.user.name,
+              style: TextStyle(
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            Material(            
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              color: Colors.blueAccent[100],
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(_chat.chat),
+              ),
+            )
+          ],
+        ),
+      )
     );
   }
 }
@@ -126,10 +143,31 @@ class RightHandChat extends StatelessWidget{
   RightHandChat(this._chat);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context){    
     return Align(
       alignment: Alignment.centerRight,
-      child: Text(_chat.chat),
+      child: Container(
+        margin: EdgeInsets.only(right: 5.0, top:2.0, bottom:2.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            Text(
+              'Me',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,              
+              ),
+            ),
+            Material(            
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              color: Colors.greenAccent[100],
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(_chat.chat),
+              ),
+            )
+          ],
+        ),
+      )
     );
   }
 }
@@ -161,6 +199,7 @@ class TextInput extends StatelessWidget{
 
     return TextField(
       controller: _provider.textController,
+      keyboardType: TextInputType.multiline,      
       onChanged: (text) => _provider.message = text,
       decoration: InputDecoration(
         hintText: 'Type a message'
