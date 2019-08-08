@@ -12,7 +12,7 @@ class RoomChatLayout extends StatelessWidget{
   RoomChatLayout(this.room, this.user);
 
   @override
-  Widget build(BuildContext context){    
+  Widget build(BuildContext context){
     return ChangeNotifierProvider(
       builder: (context) => RoomChatProvider(),
       child: SafeArea(
@@ -68,19 +68,20 @@ class RoomInfo extends InheritedWidget{
 class ListChat extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    RoomChatProvider _provider = Provider.of<RoomChatProvider>(context);
+    RoomChatProvider _provider = Provider.of<RoomChatProvider>(context, listen:false);
     RoomInfo _roomInfo = RoomInfo.of(context);
-
-    return FutureBuilder(
-      future: _provider.getListChat(_roomInfo.room.id),
-      initialData: null,
-      builder: (context, snapshot){
-        return ListItem();
-        // if(snapshot.connectionState == ConnectionState.done){
-        //   return ListItem();
-        // }
-      },
-    );
+    _provider.getListChat(_roomInfo.room.id);
+    return ListItem();
+    // return FutureBuilder(
+    //   future: _provider.getListChat(_roomInfo.room.id),
+    //   initialData: null,
+    //   builder: (context, snapshot){
+    //     return ListItem();
+    //     // if(snapshot.connectionState == ConnectionState.done){
+    //     //   return ListItem();
+    //     // }
+    //   },
+    // );
   }
 }
 
@@ -175,9 +176,10 @@ class ButtonSend extends StatelessWidget{
     final RoomInfo _roomInfo = RoomInfo.of(context);
 
     return FlatButton(
-      onPressed: (){        
-        _provider.insertChat(_roomInfo.room, _roomInfo.user).then((value){
-          _provider.refresh();
+      onPressed: (){  
+        _provider.isRefresh = true;      
+        _provider.insertChat(_roomInfo.room, _roomInfo.user).then((value){          
+          
         });
         // RESET TEXTFIELD        
         

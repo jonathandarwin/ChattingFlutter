@@ -15,8 +15,12 @@ class ChatRepository {
     return await database.child('room').child(id).once();
   }
 
-  Future<DataSnapshot> getListChat(String id) async {
-    return await database.child('room').child(id).child('chat').orderByKey().once();
+  // Future<DataSnapshot> getListChat(String id) async {    
+  //   return await database.child('room').child(id).child('chat').orderByKey().once();
+  // }
+
+  Stream<Event> getListChat(String id) {
+    return  database.child('room').child(id).child('chat').onChildAdded;
   }
 
   String insertRoomChat(Room room){
