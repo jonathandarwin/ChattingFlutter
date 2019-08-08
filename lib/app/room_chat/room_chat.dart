@@ -92,6 +92,7 @@ class ListItem extends StatelessWidget{
     RoomInfo _roomInfo = RoomInfo.of(context);
 
     return ListView.separated(
+      controller: _provider.scrollController,      
       separatorBuilder: (context, i) => Padding(
         padding: EdgeInsets.all(10.0),
       ),
@@ -161,6 +162,7 @@ class TextInput extends StatelessWidget{
     RoomChatProvider _provider = Provider.of<RoomChatProvider>(context, listen:false);
 
     return TextField(
+      controller: _provider.textController,
       onChanged: (text) => _provider.message = text,
       decoration: InputDecoration(
         hintText: 'Type a message'
@@ -179,9 +181,9 @@ class ButtonSend extends StatelessWidget{
       onPressed: (){  
         _provider.isRefresh = true;      
         _provider.insertChat(_roomInfo.room, _roomInfo.user).then((value){          
-          
-        });
-        // RESET TEXTFIELD        
+          // RESET TEXTFIELD
+          _provider.textController.text = '';
+        });        
         
       },
       child: Text('Send'),

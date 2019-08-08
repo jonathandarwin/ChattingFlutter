@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:chatting_app/base/base_provider.dart';
 import 'package:chatting_app/model/chat.dart';
 import 'package:chatting_app/model/room.dart';
@@ -7,6 +5,7 @@ import 'package:chatting_app/model/user.dart';
 import 'package:chatting_app/repository/chat_repository.dart';
 import 'package:chatting_app/util/session_util.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 
 class RoomChatProvider extends BaseProvider {
   ChatRepository chatRepository = ChatRepository();
@@ -15,9 +14,16 @@ class RoomChatProvider extends BaseProvider {
   List<Chat> _listChat = List<Chat>();
   bool _isRefresh = true;
 
+  // CONTROLLER
+  ScrollController _scrollController = ScrollController();
+  TextEditingController _textController = TextEditingController();
+
   String get message => _message;
   List<Chat> get listChat => _listChat;
-  bool get isRefresh => _isRefresh;
+  bool get isRefresh => _isRefresh;  
+  ScrollController get scrollController => _scrollController;
+  TextEditingController get textController => _textController;
+  
 
   set message(String message){
     this._message = message;    
@@ -28,7 +34,7 @@ class RoomChatProvider extends BaseProvider {
   }
   set isRefresh(bool isRefresh){
     this._isRefresh = isRefresh;
-  }
+  }  
 
   insertChat(Room room, User user) async {
     User session = await SessionUtil.loadUserData();
@@ -36,33 +42,21 @@ class RoomChatProvider extends BaseProvider {
     chatRepository.insertChat(room.id, chat);    
   }
 
-  // Future<List<Chat>> getListChat(String id) async {    
-  //   DataSnapshot getListChat = await chatRepository.getListChat(id);
-  //   if(getListChat.value != null){
-  //     Iterable iterableChat = getListChat.value.values;
-  //     List<Chat> listChat = List<Chat>();
-  //     if(iterableChat.length > 0){
-  //       for(var item in iterableChat){
-  //         Chat chat = Chat.fromJson(item); 
-  //         listChat.add(chat);
-  //       }
-  //       _listChat = listChat;
-  //       return listChat;
-  //     }
-  //   }    
-  //   return List<Chat>();
-  // }  
-
   getListChat(String id){        
     if(isRefresh){
       chatRepository.getListChat(id).listen((result){
-        DataSnapshot snapshot = result.snapshot;
-        List<Chat> listTemp = List<Chat>();
-        Chat chat = Chat.fromJson(snapshot.value);
-        listTemp = listChat;
-        listTemp.add(chat);
-        listChat = listTemp;
-        
+        DataSnapshot snapshot = result.snapshot;        
+        Chat chat = Chat.fromJson(snapshot.value);        
+        listChat.add(chat);
+        refresh();
+
+        // SET TO THE BOTTOM
+        // _scrollController.animateTo(
+        //   _scrollController.position.maxScrollExtent,
+        //   duration: Duration(milliseconds: 300),
+        //   curve: Curves.easeOut
+        // );
+
         isRefresh = false;
       });    
     }
