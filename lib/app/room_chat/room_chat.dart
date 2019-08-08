@@ -31,13 +31,14 @@ class RoomChatLayout extends StatelessWidget{
               child: Column(
                 children: <Widget>[
                   Expanded(
-                    flex: 9,
+                    flex: 11,
                     child: Container(
+                      padding: EdgeInsets.all(5.0),
                       child: ListChat()
                     ),
                   ),
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: BottomLayout(),
                   ),                                      
                 ],
@@ -72,16 +73,6 @@ class ListChat extends StatelessWidget{
     RoomInfo _roomInfo = RoomInfo.of(context);
     _provider.getListChat(_roomInfo.room.id);
     return ListItem();
-    // return FutureBuilder(
-    //   future: _provider.getListChat(_roomInfo.room.id),
-    //   initialData: null,
-    //   builder: (context, snapshot){
-    //     return ListItem();
-    //     // if(snapshot.connectionState == ConnectionState.done){
-    //     //   return ListItem();
-    //     // }
-    //   },
-    // );
   }
 }
 
@@ -99,8 +90,13 @@ class ListItem extends StatelessWidget{
       itemCount: _provider.listChat.length,
       itemBuilder: (context, i){
         Chat chat = _provider.listChat[i];
+        _provider.scrollController.animateTo(
+          _provider.scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut
+        );
         if(chat.username == _roomInfo.user.username){
-          // LEFT SIDE
+          // LEFT SIDE          
           return LeftHandChat(chat);
         }
         else {
@@ -141,17 +137,19 @@ class RightHandChat extends StatelessWidget{
 class BottomLayout extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    return Row(      
-      children: <Widget>[
-        Expanded(
-          flex: 8,
-          child: TextInput(),
-        ),
-        Expanded(
-          flex: 2,
-          child: ButtonSend(),
-        )
-      ],
+    return Container(      
+      child: Row(      
+        children: <Widget>[
+          Expanded(
+            flex: 8,
+            child: TextInput(),
+          ),
+          Expanded(
+            flex: 2,
+            child: ButtonSend(),
+          )
+        ],
+      ),
     );
   }
 }
@@ -180,8 +178,7 @@ class ButtonSend extends StatelessWidget{
     return FlatButton(
       onPressed: (){  
         _provider.isRefresh = true;      
-        _provider.insertChat(_roomInfo.room, _roomInfo.user).then((value){          
-          // RESET TEXTFIELD
+        _provider.insertChat(_roomInfo.room, _roomInfo.user).then((value){                    
           _provider.textController.text = '';
         });        
         

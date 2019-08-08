@@ -7,7 +7,7 @@ import 'package:chatting_app/util/session_util.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 
-class RoomChatProvider extends BaseProvider {
+class RoomChatProvider extends BaseProvider {  
   ChatRepository chatRepository = ChatRepository();
 
   String _message;  
@@ -16,7 +16,7 @@ class RoomChatProvider extends BaseProvider {
 
   // CONTROLLER
   ScrollController _scrollController = ScrollController();
-  TextEditingController _textController = TextEditingController();
+  TextEditingController _textController = TextEditingController();  
 
   String get message => _message;
   List<Chat> get listChat => _listChat;
@@ -51,11 +51,11 @@ class RoomChatProvider extends BaseProvider {
         refresh();
 
         // SET TO THE BOTTOM
-        // _scrollController.animateTo(
-        //   _scrollController.position.maxScrollExtent,
-        //   duration: Duration(milliseconds: 300),
-        //   curve: Curves.easeOut
-        // );
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut
+        );
 
         isRefresh = false;
       });    
