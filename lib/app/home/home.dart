@@ -84,6 +84,7 @@ class BottomNavigation extends StatelessWidget{
             // CHANGE PAGE
             provider.isFabVisible = value == 0 ? true : false;            
             provider.page = value;
+            provider.title = value == 0 ? 'Friends' : value == 1 ? 'Chats' : 'Profile';
           }
         );
       },
