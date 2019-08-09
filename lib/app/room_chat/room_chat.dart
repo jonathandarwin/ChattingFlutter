@@ -102,7 +102,7 @@ class ListItem extends StatelessWidget{
   }
 }
 
-class LeftHandChat extends StatelessWidget{
+class LeftHandChat extends StatelessWidget {
   final Chat _chat;
   LeftHandChat(this._chat);
 
@@ -114,25 +114,43 @@ class LeftHandChat extends StatelessWidget{
       alignment: Alignment.centerLeft,
       child: Container( 
         margin: EdgeInsets.only(left: 5.0, top:5.0, bottom:5.0),
-        child: Column(
+        child: Row(          
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              _roomInfo.user.name,
-              style: TextStyle(
-                fontWeight: FontWeight.bold
+            // IMAGE
+            Container(      
+              margin: EdgeInsets.only(right: 15.0),
+              child: PhysicalModel(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(100.0),      
+                child: Container(        
+                  padding: EdgeInsets.all(5.0),        
+                  child: Icon(Icons.person, size: 30.0,),
+                ) 
               ),
             ),
-            Material(            
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              color: Colors.blueAccent[100],
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Text(_chat.chat),
-              ),
+            // MESSAGE
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  _roomInfo.user.name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                Material(            
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  color: Colors.blueAccent[100],
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(_chat.chat),
+                  ),
+                )
+              ],
             )
           ],
-        ),
+        )
       )
     );
   }
