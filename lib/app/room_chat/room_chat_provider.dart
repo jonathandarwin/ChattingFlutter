@@ -12,7 +12,7 @@ class RoomChatProvider extends BaseProvider {
 
   String _message;  
   List<Chat> _listChat = List<Chat>();
-  bool _isRefresh = true;
+  bool _isRefresh = true;  
 
   // CONTROLLER
   ScrollController _scrollController = ScrollController();
@@ -57,7 +57,8 @@ class RoomChatProvider extends BaseProvider {
           curve: Curves.easeOut
         );
         isRefresh = false;
-      });    
+      });      
     }
+    isRefresh = false;
   }
 }
