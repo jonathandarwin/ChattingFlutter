@@ -76,7 +76,7 @@ class FriendsProvider extends BaseProvider{
         String id = item['id'];
         if(id.contains(user.username)){    
           // GET ROOM CHAT 
-          DataSnapshot getChat = await chatRepository.getChat(id);
+          DataSnapshot getChat = await chatRepository.getChatDetail(id);
           if(getChat != null){
             Room room = Room.fromJson(getChat.value);
             Tuple2<Room, User> result = new Tuple2<Room, User>(room, session.username == room.user1.username ? room.user2 : room.user1);

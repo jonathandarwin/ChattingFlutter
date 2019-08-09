@@ -8,18 +8,22 @@ class ChatRepository {
   
 
   Future<DataSnapshot> getRoomChat(User session) async {
+    // GET CHAT KEY BY USER
     return await database.child('user').child(session.username).child('chats').once();
   }
 
-  Future<DataSnapshot> getChat(String id) async {
+  Future<DataSnapshot> getChatDetail(String id) async {
+    // GET CHAT DETAIL
     return await database.child('room').child(id).once();
   }  
 
   Stream<Event> getListChat(String id) {
+    // GET LIST CHAT
     return  database.child('room').child(id).child('chat').orderByKey().onChildAdded;
   }
 
   String insertRoomChat(Room room){
+    // INSERT DETAIL ROOM CHAT
     try{      
       // INSERT KEY TO BOTH USER
       database.child('user').child(room.user1.username).child('chats').child(room.id).set({
@@ -39,6 +43,7 @@ class ChatRepository {
   }
 
   bool insertChat(String id,Chat chat){
+    // INSERT CHAT
     try{
       database.child('room').child(id).child('chat').push().set(chat.toJson());
       return true;
