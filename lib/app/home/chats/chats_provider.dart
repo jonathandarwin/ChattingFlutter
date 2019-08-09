@@ -1,29 +1,48 @@
+import 'package:chatting_app/base/base_provider.dart';
 import 'package:chatting_app/model/room.dart';
 import 'package:chatting_app/model/user.dart';
 import 'package:chatting_app/repository/chat_repository.dart';
 import 'package:chatting_app/util/session_util.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/widgets.dart';
 
-class ChatsProvider extends ChangeNotifier{
+class ChatsProvider extends BaseProvider{
   static const int SUCCESS = 1;
   static const int NO_DATA = 2;
   static const int ERROR = 3;
 
-  List<Room> listChat = List<Room>();
+  List<Room> _listRoom = List<Room>();
+  User _session = User();
+
+  List<Room> get listRoom => _listRoom;
+  User get session => _session;
+
+  set listRoom(List<Room> listRoom){
+    this._listRoom = listRoom;
+    notifyListeners();
+  }  
 
   ChatRepository chatRepository = ChatRepository();
 
-  getRoomChat() async {
+  Future<int> getRoomChat() async {
     User session = await SessionUtil.loadUserData();
+    _session = session;
     // GET ROOM CHAT KEY
-    DataSnapshot getRoomChat = await chatRepository.getRoomChat(session);
+    DataSnapshot getRoomChat = await chatRepository.getRoomChatKey(session);
     if(getRoomChat.value != null){
-      Iterable iterableRoomChat = getRoomChat.value.values;
+      Iterable iterableRoomChat = getRoomChat.value.values;      
       if(iterableRoomChat.length > 0){
+        _listRoom = List<Room>();
         for(var item in iterableRoomChat){
-          _
+          // GET ROOM DETAIL
+          DataSnapshot getChatDetail = await chatRepository.getChatDetail(item['id']);
+          if(getChatDetail.value != null){            
+            Room room = Room.fromJson(getChatDetail.value);
+            if(room.chat != null){
+              listRoom.add(room);
+            }             
+          }          
         }
+        return SUCCESS;      
       }
     }
     return NO_DATA;

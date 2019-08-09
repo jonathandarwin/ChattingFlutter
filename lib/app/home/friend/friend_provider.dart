@@ -68,7 +68,7 @@ class FriendsProvider extends BaseProvider{
   Future<Tuple2<Room, User>> getRoomChat(User user) async {            
     User session = await SessionUtil.loadUserData();        
     // CHECK WHETHER THE ROOM CHAT IS EXISTS OR NOT
-    DataSnapshot getRoomChat = await chatRepository.getRoomChat(session);
+    DataSnapshot getRoomChat = await chatRepository.getRoomChatKey(session);
     if(getRoomChat.value != null){            
       // SEARCH THE EXISTING ROOM AND RETURN IT
       Iterable iterableRoom = getRoomChat.value.values;

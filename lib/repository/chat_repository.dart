@@ -7,7 +7,7 @@ class ChatRepository {
   final DatabaseReference database = FirebaseDatabase.instance.reference();  
   
 
-  Future<DataSnapshot> getRoomChat(User session) async {
+  Future<DataSnapshot> getRoomChatKey(User session) async {
     // GET CHAT KEY BY USER
     return await database.child('user').child(session.username).child('chats').once();
   }

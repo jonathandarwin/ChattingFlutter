@@ -1,7 +1,7 @@
 import 'package:chatting_app/app/home/friend/add_friend/add_friend.dart';
 import 'package:chatting_app/app/home/friend/friend_dialog.dart';
 import 'package:chatting_app/app/home/friend/friend_provider.dart';
-import 'package:chatting_app/app/home/home_provider.dart';
+import 'package:chatting_app/widget/list_divider.dart';
 import 'package:chatting_app/widget/no_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,12 +45,7 @@ class ListItem extends StatelessWidget{
     return Consumer<FriendsProvider>(      
       builder: (context, provider, _){
         return ListView.separated(
-          separatorBuilder: (context, i) => Padding(
-            padding: EdgeInsets.only(left: 10.0, right: 10.0),
-            child: Divider(
-              color: Colors.grey,
-            ),
-          ),
+          separatorBuilder: (context, i) => ListDivider(),
           itemCount: provider.listFriend.length,
           itemBuilder: (context, i) {            
             return ListTile(
