@@ -37,9 +37,12 @@ class RoomChatProvider extends BaseProvider {
   }
 
   insertChat(Room room, User user) async {
-    User session = await SessionUtil.loadUserData();
-    Chat chat = Chat.setData(session.username, message);
-    chatRepository.insertChat(room.id, chat);    
+    if(message.trim() != ''){
+      User session = await SessionUtil.loadUserData();
+      Chat chat = Chat.setData(session.username, message);
+      message = '';
+      chatRepository.insertChat(room.id, chat);
+    }        
   }
 
   getListChat(String id){        
@@ -55,7 +58,7 @@ class RoomChatProvider extends BaseProvider {
           _scrollController.position.maxScrollExtent,
           duration: Duration(milliseconds: 500),
           curve: Curves.easeOut
-        );
+        );        
         isRefresh = false;
       });      
     }
