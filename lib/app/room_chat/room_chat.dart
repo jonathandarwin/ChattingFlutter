@@ -229,9 +229,9 @@ class TextInput extends StatelessWidget{
     RoomChatProvider _provider = Provider.of<RoomChatProvider>(context, listen:false);
 
     return TextField(
-      controller: _provider.textController,
+      controller: _provider.textController,   
       keyboardType: TextInputType.multiline, 
-      maxLines: 3,
+      maxLines: 2,      
       onChanged: (text) => _provider.message = text,
       decoration: InputDecoration(        
         hintText: 'Type a message',        
