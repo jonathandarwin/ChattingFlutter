@@ -130,7 +130,7 @@ class LeftHandChat extends StatelessWidget {
           children: <Widget>[
             // IMAGE
             Container(      
-              margin: EdgeInsets.only(right: 15.0),
+              margin: EdgeInsets.only(right: 10.0),
               child: PhysicalModel(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(100.0),      
@@ -141,24 +141,26 @@ class LeftHandChat extends StatelessWidget {
               ),
             ),
             // MESSAGE
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  _roomInfo.user.name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    _roomInfo.user.name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
-                ),
-                Material(            
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  color: Colors.blueAccent[100],
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(_chat.chat),
-                  ),
-                )
-              ],
+                  Material(            
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    color: Colors.blueAccent[100],
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(_chat.chat),
+                    ),
+                  )
+                ],
+              ),
             )
           ],
         )
@@ -186,12 +188,14 @@ class RightHandChat extends StatelessWidget{
                 fontWeight: FontWeight.bold,              
               ),
             ),
-            Material(            
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              color: Colors.greenAccent[100],
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Text(_chat.chat),
+            Container(
+              child: Material(            
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                color: Colors.greenAccent[100],
+                child: Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text(_chat.chat),
+                ),
               ),
             )
           ],

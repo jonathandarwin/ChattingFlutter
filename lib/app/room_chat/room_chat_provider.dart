@@ -52,13 +52,7 @@ class RoomChatProvider extends BaseProvider {
         Chat chat = Chat.fromJson(snapshot.value);        
         listChat.add(chat);
         refresh();
-
-        // SET TO THE BOTTOM
-        // _scrollController.animateTo(
-        //   listChat.length.toDouble(),
-        //   duration: Duration(milliseconds: 500),
-        //   curve: Curves.easeOut
-        // );        
+        
         isRefresh = false;
       });      
     }
