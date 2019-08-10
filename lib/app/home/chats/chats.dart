@@ -74,19 +74,22 @@ class ListItem extends StatelessWidget{
                   ),
                 ),
                 // CHAT
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      _provider.session.username == room.user1.username ? room.user2.name : room.user1.name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        _provider.session.username == room.user1.username ? room.user2.name : room.user1.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold
+                        ),
                       ),
-                    ),
-                    Text(
-                      room.chat[room.chat.length-1].chat
-                    )
-                  ],
+                      Text(
+                        room.chat[room.chat.length-1].chat,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),

@@ -31,20 +31,18 @@ class RoomChatLayout extends StatelessWidget{
               padding: EdgeInsets.all(10.0),
               child: Column(
                 children: <Widget>[
-                  Expanded(
-                    flex: 15,
+                  Expanded(                    
                     child: Container(                      
                       child: ListChat()
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
+                  Container(
                     child: BottomLayout(),
                   ),                                      
                 ],
               ),
             ),
-          )
+          ),          
         ),
       ),
     );
@@ -135,7 +133,7 @@ class LeftHandChat extends StatelessWidget {
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(100.0),      
                 child: Container(        
-                  padding: EdgeInsets.all(5.0),        
+                  padding: EdgeInsets.all(5.0),
                   child: Icon(Icons.person, size: 30.0,),
                 ) 
               ),
@@ -232,10 +230,11 @@ class TextInput extends StatelessWidget{
 
     return TextField(
       controller: _provider.textController,
-      keyboardType: TextInputType.multiline,      
+      keyboardType: TextInputType.multiline, 
+      maxLines: 3,
       onChanged: (text) => _provider.message = text,
-      decoration: InputDecoration(
-        hintText: 'Type a message'
+      decoration: InputDecoration(        
+        hintText: 'Type a message',        
       ),
     );
   }
