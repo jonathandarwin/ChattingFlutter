@@ -19,7 +19,7 @@ class ChatRepository {
 
   Stream<Event> getListChat(String id) {
     // GET LIST CHAT
-    return  database.child('room').child(id).child('chat').orderByKey().onChildAdded;
+    return  database.child('room').child(id).child('chat').orderByKey().onChildAdded;    
   }
 
   String insertRoomChat(Room room){

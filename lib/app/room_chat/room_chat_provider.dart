@@ -51,14 +51,14 @@ class RoomChatProvider extends BaseProvider {
         DataSnapshot snapshot = result.snapshot;        
         Chat chat = Chat.fromJson(snapshot.value);        
         listChat.add(chat);
-        refresh();                
+        refresh();
 
         // SET TO THE BOTTOM
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 500),
-          curve: Curves.easeOut
-        );        
+        // _scrollController.animateTo(
+        //   listChat.length.toDouble(),
+        //   duration: Duration(milliseconds: 500),
+        //   curve: Curves.easeOut
+        // );        
         isRefresh = false;
       });      
     }

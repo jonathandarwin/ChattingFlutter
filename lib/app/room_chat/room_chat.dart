@@ -4,6 +4,7 @@ import 'package:chatting_app/model/room.dart';
 import 'package:chatting_app/model/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 class RoomChatLayout extends StatelessWidget{    
@@ -79,10 +80,20 @@ class ListItem extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     RoomChatProvider _provider = Provider.of<RoomChatProvider>(context);
-    RoomInfo _roomInfo = RoomInfo.of(context);
+    RoomInfo _roomInfo = RoomInfo.of(context);    
+
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      // SET TO THE BOTTOM
+      _provider.scrollController.animateTo(
+        _provider.scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeOut
+      );        
+    });
 
     return ListView.separated(
       controller: _provider.scrollController,      
+      shrinkWrap: true,      
       separatorBuilder: (context, i) => Padding(
         padding: EdgeInsets.all(10.0),
       ),
