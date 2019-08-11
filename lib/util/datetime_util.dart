@@ -34,26 +34,19 @@ class DatetimeUtil{
   }
 
   // CONVERT DATE
-  static String convertDateToView(String dateTime){
-    return DateFormat(DATE_FORMAT_VIEW, LOCALE_FORMAT).format(convertStringToDatetime(dateTime)).toString();
-  }
-
-  static String convertViewToDate(String dateTime){
-    return DateFormat(DATE_FORMAT_RAW, LOCALE_FORMAT).format(convertStringToDatetime(dateTime)).toString();
-  }
-
-  static String convertDateToShort(String dateTime){
-    return DateFormat(DATE_FORMAT_SHORT, LOCALE_FORMAT).format(convertStringToDatetime(dateTime)).toString();
+  static String convertDate(String dateTime, String format){
+    return DateFormat(format, LOCALE_FORMAT).format(convertStringToDatetime(dateTime)).toString();
   }
 
   // CONVERT TIME
   static String convertTimeToView(String dateTime){
     return DateFormat(TIME_FORMAT_VIEW, LOCALE_FORMAT).format(convertStringToDatetime(dateTime)).toString();
   }
+  
 
   // COMPARE DATE
   static int compareDate(String date1, String date2){    
-    switch(convertViewToDate(date1).compareTo(convertViewToDate(date2))){
+    switch(convertDate(date1, DATE_FORMAT_RAW).compareTo(convertDate(date2, DATE_FORMAT_RAW))){
       case 0:
         return SAME_DATE;
       case 1:

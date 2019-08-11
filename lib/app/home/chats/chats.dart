@@ -113,7 +113,7 @@ class ListItem extends StatelessWidget{
       return DatetimeUtil.convertTimeToView(room.chat[room.chat.length-1].datetime);
     }
     else if(compare == DatetimeUtil.DATE_IS_GREATER){
-      return DatetimeUtil.convertDateToShort(room.chat[room.chat.length-1].datetime);
+      return DatetimeUtil.convertDate(room.chat[room.chat.length-1].datetime, DatetimeUtil.DATE_FORMAT_SHORT);
     }
     return '';
   }
