@@ -2,6 +2,7 @@ import 'package:chatting_app/base/base_provider.dart';
 import 'package:chatting_app/model/room.dart';
 import 'package:chatting_app/model/user.dart';
 import 'package:chatting_app/repository/chat_repository.dart';
+import 'package:chatting_app/util/datetime_util.dart';
 import 'package:chatting_app/util/session_util.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -23,7 +24,7 @@ class ChatsProvider extends BaseProvider{
 
   ChatRepository chatRepository = ChatRepository();
 
-  Future<int> getRoomChat() async {
+  Future<int> getRoomChat() async {    
     User session = await SessionUtil.loadUserData();
     _session = session;
     // GET ROOM CHAT KEY
