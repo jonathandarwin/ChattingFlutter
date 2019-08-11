@@ -2,6 +2,7 @@ import 'package:chatting_app/app/room_chat/room_chat_provider.dart';
 import 'package:chatting_app/model/chat.dart';
 import 'package:chatting_app/model/room.dart';
 import 'package:chatting_app/model/user.dart';
+import 'package:chatting_app/util/datetime_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -149,13 +150,29 @@ class LeftHandChat extends StatelessWidget {
                       fontWeight: FontWeight.bold
                     ),
                   ),
-                  Material(            
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    color: Colors.blueAccent[100],
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text(_chat.chat),
-                    ),
+                  Row(                    
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      // MESSAGE
+                      Flexible(
+                        child: Material(            
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          color: Colors.blueAccent[100],
+                          child: Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text(_chat.chat),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10.0,),
+                      // TIME
+                      Text(
+                        DatetimeUtil.convertTimeToView(_chat.datetime),
+                        style: TextStyle(
+                          color: Colors.grey
+                        ),
+                      ),                      
+                    ],
                   )
                 ],
               ),
@@ -186,14 +203,32 @@ class RightHandChat extends StatelessWidget{
                 fontWeight: FontWeight.bold,              
               ),
             ),
+            
             Container(
-              child: Material(            
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                color: Colors.greenAccent[100],
-                child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Text(_chat.chat),
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  // TIME
+                  Text(
+                    DatetimeUtil.convertTimeToView(_chat.datetime),
+                    style: TextStyle(
+                      color: Colors.grey
+                    ),
+                  ),
+                  SizedBox(width: 10.0,),
+                  // MESSAGE
+                  Flexible(                    
+                    child: Material(            
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      color: Colors.greenAccent[100],
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(_chat.chat)
+                      ),
+                    ),
+                  )
+                ],
               ),
             )
           ],

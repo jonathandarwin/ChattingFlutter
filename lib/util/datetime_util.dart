@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 
 class DatetimeUtil{
+  static const String DATE_TIME_FULL = 'yyyy-MM-dd HH:mm:ss';
   static const String DATE_FORMAT_RAW = 'yyyy-MM-dd';
   static const String DATE_FORMAT_VIEW = 'dd MMM yyyy';
   static const String TIME_FORMAT_VIEW = 'HH:mm';
@@ -22,17 +23,22 @@ class DatetimeUtil{
     return DateFormat(TIME_FORMAT_VIEW).format(date);
   }
 
-  // CONVERT DATE
-  static String convertDateToView(DateTime dateTime){
-    return DateFormat(DATE_FORMAT_VIEW, LOCALE_FORMAT).format(dateTime).toString();
+  // CONVERT STRING TO DATETIME
+  static DateTime convertStringToDatetime(String datetime){
+    return DateFormat(DATE_TIME_FULL, LOCALE_FORMAT).parse(datetime);
   }
 
-  static String convertViewToDate(DateTime dateTime){
-    return DateFormat(DATE_FORMAT_RAW, LOCALE_FORMAT).format(dateTime).toString();
+  // CONVERT DATE
+  static String convertDateToView(String dateTime){
+    return DateFormat(DATE_FORMAT_VIEW, LOCALE_FORMAT).format(convertStringToDatetime(dateTime)).toString();
+  }
+
+  static String convertViewToDate(String dateTime){
+    return DateFormat(DATE_FORMAT_RAW, LOCALE_FORMAT).format(convertStringToDatetime(dateTime)).toString();
   }
 
   // CONVERT TIME
-  static String convertTimeToView(DateTime dateTime){
-    return DateFormat(TIME_FORMAT_VIEW, LOCALE_FORMAT).format(dateTime).toString();
+  static String convertTimeToView(String dateTime){
+    return DateFormat(TIME_FORMAT_VIEW, LOCALE_FORMAT).format(convertStringToDatetime(dateTime)).toString();
   }
 }
