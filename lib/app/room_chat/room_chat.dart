@@ -150,7 +150,7 @@ class LeftHandChat extends StatelessWidget {
                       fontWeight: FontWeight.bold
                     ),
                   ),
-                  Row(                    
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       // MESSAGE

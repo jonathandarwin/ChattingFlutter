@@ -1,6 +1,7 @@
 import 'package:chatting_app/app/home/chats/chats_provider.dart';
 import 'package:chatting_app/app/room_chat/room_chat.dart';
 import 'package:chatting_app/model/room.dart';
+import 'package:chatting_app/util/datetime_util.dart';
 import 'package:chatting_app/widget/list_divider.dart';
 import 'package:chatting_app/widget/loader.dart';
 import 'package:chatting_app/widget/no_data.dart';
@@ -59,7 +60,7 @@ class ListItem extends StatelessWidget{
               );
             },
             title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,              
               children: <Widget>[
                 // IMAGE
                 Container(      
@@ -91,11 +92,29 @@ class ListItem extends StatelessWidget{
                     ],
                   ),
                 ),
+                // TIME
+                Text(
+                  getTextDateTime(room),
+                  style: TextStyle(
+                    color: Colors.grey
+                  ),
+                )
               ],
             ),
           )
         );               
       },
     );
+  }
+
+  String getTextDateTime(Room room){
+    int compare = DatetimeUtil.compareDate(DateTime.now().toString(), room.chat[room.chat.length-1].datetime);
+    if(compare == DatetimeUtil.SAME_DATE){
+      return DatetimeUtil.convertTimeToView(room.chat[room.chat.length-1].datetime);
+    }
+    else if(compare == DatetimeUtil.DATE_IS_GREATER){
+      return DatetimeUtil.convertDateToShort(room.chat[room.chat.length-1].datetime);
+    }
+    return '';
   }
 }
