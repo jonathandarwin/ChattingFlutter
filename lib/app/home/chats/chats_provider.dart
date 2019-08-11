@@ -37,12 +37,13 @@ class ChatsProvider extends BaseProvider{
           DataSnapshot getChatDetail = await chatRepository.getChatDetail(item['id']);
           if(getChatDetail.value != null){            
             Room room = Room.fromJson(getChatDetail.value);
-            if(room.chat != null){
-              listRoom.add(room);
+            if(room.chat != null){              
+              listRoom.add(room);              
             }             
           }          
         }
-        return SUCCESS;      
+        if(listRoom.length > 0)
+          return SUCCESS;      
       }
     }
     return NO_DATA;
