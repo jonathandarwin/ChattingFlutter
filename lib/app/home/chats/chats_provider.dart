@@ -37,7 +37,8 @@ class ChatsProvider extends BaseProvider{
           DataSnapshot getChatDetail = await chatRepository.getChatDetail(item['id']);
           if(getChatDetail.value != null){            
             Room room = Room.fromJson(getChatDetail.value);
-            if(room.chat != null){              
+            if(room.chat != null){
+              room.chat.sort((a,b) => a.datetime.compareTo(b.datetime));
               listRoom.add(room);              
             }             
           }          

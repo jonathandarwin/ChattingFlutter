@@ -39,7 +39,7 @@ class RoomChatProvider extends BaseProvider {
   insertChat(Room room, User user) async {
     if(message.trim() != ''){
       User session = await SessionUtil.loadUserData();
-      Chat chat = Chat.setData(session.username, message);
+      Chat chat = Chat.setData(session.username, message, DateTime.now().toString());
       message = '';
       chatRepository.insertChat(room.id, chat);
     }        
