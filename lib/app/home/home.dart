@@ -40,20 +40,20 @@ class HomeLayout extends StatelessWidget{
 class FloatingButtonAdd extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    return Consumer<HomeProvider>(
-      builder: (context, provider, _) => Visibility(
-        visible: provider.isFabVisible,
-        child: FloatingActionButton(
-          onPressed: (){
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => AddFriendLayout()
-              )
-            );
-          },
-          child: Icon(Icons.add),
-          backgroundColor: Colors.lightBlue,
-        ),
+    HomeProvider _provider = Provider.of<HomeProvider>(context, listen:false);
+
+    return Visibility(
+      visible: _provider.isFabVisible,
+      child: FloatingActionButton(
+        onPressed: (){
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => AddFriendLayout()
+            )
+          );
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.lightBlue,
       ),
     );
   }
@@ -62,32 +62,30 @@ class FloatingButtonAdd extends StatelessWidget{
 class BottomNavigation extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    return Consumer<HomeProvider>(
-      builder: (context, provider, _){
-        return BottomNavigationBar(
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.group),
-              title: Text('Friends')
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble_outline),
-              title: Text('Chats')
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              title: Text('Profile')
-            ),
-          ],
-          currentIndex: provider.page,
-          onTap: (value){
-            // CHANGE PAGE
-            provider.isFabVisible = value == 0 ? true : false;            
-            provider.page = value;
-            provider.title = value == 0 ? 'Friends' : value == 1 ? 'Chats' : 'Profile';
-          }
-        );
-      },
+    HomeProvider _provider = Provider.of<HomeProvider>(context, listen:false);
+
+    return BottomNavigationBar(
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.group),
+          title: Text('Friends')
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.chat_bubble_outline),
+          title: Text('Chats')
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          title: Text('Profile')
+        ),
+      ],
+      currentIndex: _provider.page,
+      onTap: (value){
+        // CHANGE PAGE
+        _provider.isFabVisible = value == 0 ? true : false;            
+        _provider.page = value;
+        _provider.title = value == 0 ? 'Friends' : value == 1 ? 'Chats' : 'Profile';
+      }
     );
   }
 }

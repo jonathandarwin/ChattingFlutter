@@ -32,7 +32,7 @@ class ChatsProvider extends BaseProvider{
     if(getRoomChat.value != null){
       Iterable iterableRoomChat = getRoomChat.value.values;      
       if(iterableRoomChat.length > 0){
-        _listRoom = List<Room>();
+        listRoom.clear();
         for(var item in iterableRoomChat){
           // GET ROOM DETAIL
           DataSnapshot getChatDetail = await chatRepository.getChatDetail(item['id']);
@@ -40,7 +40,7 @@ class ChatsProvider extends BaseProvider{
             Room room = Room.fromJson(getChatDetail.value);
             if(room.chat != null){
               room.chat.sort((a,b) => a.datetime.compareTo(b.datetime));
-              listRoom.add(room);              
+              listRoom.add(room);
             }             
           }          
         }

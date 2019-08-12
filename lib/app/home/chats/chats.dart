@@ -21,7 +21,7 @@ class ChatsLayout extends StatelessWidget{
 class ListRoom extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    ChatsProvider _provider = Provider.of<ChatsProvider>(context);
+    ChatsProvider _provider = Provider.of<ChatsProvider>(context, listen:false);
     return FutureBuilder(
       future: _provider.getRoomChat(),
       initialData: null,
@@ -43,7 +43,7 @@ class ListRoom extends StatelessWidget{
 class ListItem extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    ChatsProvider _provider = Provider.of<ChatsProvider>(context);
+    ChatsProvider _provider = Provider.of<ChatsProvider>(context, listen: false);
     return ListView.separated(
       separatorBuilder: (context, i) => ListDivider(),
       itemCount: _provider.listRoom.length,
