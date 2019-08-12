@@ -45,6 +45,7 @@ class ChatsProvider extends BaseProvider{
           }          
         }
         if(listRoom.length > 0)
+          listRoom.sort((a,b) => b.chat[b.chat.length-1].datetime.compareTo(a.chat[a.chat.length-1].datetime));
           return SUCCESS;      
       }
     }
