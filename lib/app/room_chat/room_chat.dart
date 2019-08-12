@@ -171,7 +171,8 @@ class LeftHandChat extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.grey
                         ),
-                      ),                      
+                      ), 
+                      SizedBox(width: 20.0,),
                     ],
                   )
                 ],
@@ -209,6 +210,7 @@ class RightHandChat extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
+                  SizedBox(width: 20.0,),
                   // TIME
                   Text(
                     DatetimeUtil.convertTimeToView(_chat.datetime),
