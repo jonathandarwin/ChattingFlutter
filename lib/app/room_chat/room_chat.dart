@@ -3,6 +3,7 @@ import 'package:chatting_app/model/chat.dart';
 import 'package:chatting_app/model/room.dart';
 import 'package:chatting_app/model/user.dart';
 import 'package:chatting_app/util/datetime_util.dart';
+import 'package:chatting_app/util/focus_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -25,22 +26,25 @@ class RoomChatLayout extends StatelessWidget{
             title: Text(user.name),
             backgroundColor: Colors.lightBlue,
           ),
-          body: RoomInfo(
-            room: room,
-            user: user,
-            child: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                children: <Widget>[
-                  Expanded(                    
-                    child: Container(                      
-                      child: ListChat()
+          body: GestureDetector(
+            onTap: () => FocusUtil.changeFocus(context),
+            child: RoomInfo(
+              room: room,
+              user: user,
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Column(
+                  children: <Widget>[
+                    Expanded(                    
+                      child: Container(                      
+                        child: ListChat()
+                      ),
                     ),
-                  ),
-                  Container(
-                    child: BottomLayout(),
-                  ),                                      
-                ],
+                    Container(
+                      child: BottomLayout(),
+                    ),                                      
+                  ],
+                ),
               ),
             ),
           ),          

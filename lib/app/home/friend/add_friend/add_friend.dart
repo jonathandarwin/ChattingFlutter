@@ -1,4 +1,5 @@
 import 'package:chatting_app/app/home/friend/add_friend/add_friend_provider.dart';
+import 'package:chatting_app/util/focus_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
@@ -71,8 +72,8 @@ class Search extends StatelessWidget{
           ),
           // BUTTON SEARCH
           FlatButton(
-            onPressed: (){
-              FocusScope.of(context).requestFocus(new FocusNode());
+            onPressed: (){              
+              FocusUtil.changeFocus(context);
               
               _provider.loading = true;
               _provider.searchUser().then((value){

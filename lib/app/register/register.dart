@@ -1,4 +1,5 @@
 import 'package:chatting_app/app/register/register_provider.dart';
+import 'package:chatting_app/util/focus_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
@@ -11,40 +12,43 @@ class RegisterLayout extends StatelessWidget{
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.lightBlue,
-          body: Stack(
-            children: <Widget>[
-              // FORM
-              Center(
-                child: Container(              
-                  padding: EdgeInsets.all(50.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,                
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,                    
-                        child: Title(),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: <Widget>[
-                              TextFieldName(),
-                              TextFieldUsername(),
-                              TextFieldPassword(),
-                              ButtonRegister(),                                  
-                            ],
-                          ),
+          body: GestureDetector(
+            onTap: () => FocusUtil.changeFocus(context),
+            child: Stack(
+              children: <Widget>[
+                // FORM
+                Center(
+                  child: Container(              
+                    padding: EdgeInsets.all(50.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,                
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,                    
+                          child: Title(),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: <Widget>[
+                                TextFieldName(),
+                                TextFieldUsername(),
+                                TextFieldPassword(),
+                                ButtonRegister(),                                  
+                              ],
+                            ),
+                          )
                         )
-                      )
-                    ],
-                  ),
-                )
-              ),   
-              // LOADER
-              Loader()
-            ],
-          )
+                      ],
+                    ),
+                  )
+                ),   
+                // LOADER
+                Loader()
+              ],
+            )
+          ),
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:chatting_app/app/home/home.dart';
 import 'package:chatting_app/app/login/login_provider.dart';
 import 'package:chatting_app/app/register/register.dart';
+import 'package:chatting_app/util/focus_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,37 +18,40 @@ class LoginLayout extends StatelessWidget{
           body: Stack(
             children: <Widget>[
               // FORM              
-              Center(
-                child: Container(              
-                  padding: EdgeInsets.all(50.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,                
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,                    
-                        child: Title(),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: <Widget>[
-                              TextFieldUsername(),
-                              TextFieldPassword(),
-                              ButtonLogin(),
-                              TextRegister()
-                            ],
-                          ),
+              GestureDetector(
+                onTap: () => FocusUtil.changeFocus(context),
+                child: Center(
+                  child: Container(
+                    padding: EdgeInsets.all(50.0),                    
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,                
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,                    
+                          child: Title(),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: <Widget>[
+                                TextFieldUsername(),
+                                TextFieldPassword(),
+                                ButtonLogin(),
+                                TextRegister()
+                              ],
+                            ),
+                          )
                         )
-                      )
-                    ],
-                  ),
-                )
+                      ],
+                    ),
+                  )
+                ),
               ),              
               // LOADER
               Loader()
             ],
-          ),
+          )
         )
       ),      
     );
