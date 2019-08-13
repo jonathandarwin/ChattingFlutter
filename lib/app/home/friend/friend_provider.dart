@@ -62,7 +62,24 @@ class FriendsProvider extends BaseProvider{
 
   Future<bool> deleteFriend(User user) async {
     User session = await SessionUtil.loadUserData();
-    return friendRepository.deleteFriends(session, user);
+    String id = '';
+    
+    // GET ALL CHAT
+    DataSnapshot getRoomChatKey = await chatRepository.getRoomChatKey(session);
+    if(getRoomChatKey.value != null){
+      Iterable iterableRoomKey = getRoomChatKey.value.values;
+      if(iterableRoomKey.length > 0){
+        for(var item in iterableRoomKey){
+          if(item['id'].toString().contains(user.username)){
+            id = item['id'].toString();
+            chatRepository.deleteChat(session, user, id);
+            friendRepository.deleteFriends(session, user);
+            return true;
+          }
+        }
+      }
+    }
+    return false;
   }
 
   Future<Tuple2<Room, User>> getRoomChat(User user) async {            

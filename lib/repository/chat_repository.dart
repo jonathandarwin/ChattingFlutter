@@ -52,4 +52,20 @@ class ChatRepository {
       return false;
     }
   }
+
+  bool deleteChat(User session, User user, String id){
+    try{
+      // DELETE ROOM CHAT
+      database.child('room').child(id).remove();
+
+      // DELETE KEY CHAT ON EACH USER
+      database.child('user').child(session.username).child('chats').child(id).remove();
+      database.child('user').child(user.username).child('chats').child(id).remove();
+
+      return true;
+    }
+    on Exception{
+      return false;
+    }
+  }
 }
