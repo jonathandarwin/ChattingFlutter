@@ -72,6 +72,8 @@ class Search extends StatelessWidget{
           // BUTTON SEARCH
           FlatButton(
             onPressed: (){
+              FocusScope.of(context).requestFocus(new FocusNode());
+              
               _provider.loading = true;
               _provider.searchUser().then((value){
                 _provider.loading = false;                  
@@ -113,8 +115,8 @@ class Result extends StatelessWidget{
                 children: <Widget>[
                   // BUTTON
                   Visibility(            
-                    visible: provider.buttonVisibility,
-                    child: RaisedButton(            
+                    visible: provider.buttonVisibility,                    
+                    child: RaisedButton(                                  
                       onPressed: (){
                         provider.addFriend().then((value) {
                           switch(value){
