@@ -11,6 +11,8 @@ class ChatsProvider extends BaseProvider{
   static const int NO_DATA = 2;
   static const int ERROR = 3;
 
+  ChatRepository chatRepository = ChatRepository();
+
   List<Room> _listRoom = List<Room>();
   User _session = User();
 
@@ -20,9 +22,7 @@ class ChatsProvider extends BaseProvider{
   set listRoom(List<Room> listRoom){
     this._listRoom = listRoom;
     notifyListeners();
-  }  
-
-  ChatRepository chatRepository = ChatRepository();
+  }    
 
   Future<int> getRoomChat() async {    
     User session = await SessionUtil.loadUserData();
@@ -50,5 +50,9 @@ class ChatsProvider extends BaseProvider{
       }
     }
     return NO_DATA;
+  }
+
+  bool deleteChat(Room room){
+    return chatRepository.deleteChat(room.user1, room.user2, room.id);
   }
 }
